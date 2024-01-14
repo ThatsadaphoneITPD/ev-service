@@ -1,0 +1,17 @@
+{
+  "extends": "next/core-web-vitals",
+  "rules": {
+    // "no-undef": "error",
+    "no-unused-vars": "warn",
+    "no-duplicate-imports": "warn",
+    "import/no-unresolved": "error",
+    // "react/react-in-jsx-scope": "off",
+    "react/no-unknown-property": "error"
+    // "no-undef": "off", // Disable the no-undef rule
+    // "no-unused-vars": "off", // Disable the no-unused-vars rule
+    // "no-duplicate-imports": "warn",
+    // "import/no-unresolved": "off", // Disable the import/no-unresolved rule
+    // "react/react-in-jsx-scope": "off",
+    // "react/no-unknown-property": "off" // Disable the react/no-unknown-property rule
+  }
+}

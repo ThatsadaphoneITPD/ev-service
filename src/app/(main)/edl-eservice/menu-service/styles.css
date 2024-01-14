@@ -1,0 +1,12 @@
+@keyframes rolling {
+  0% {
+    transform: skewY(-6deg) rotate(20deg);
+  }
+  100% {
+    transform: skewY(-6deg) rotate(380deg);
+  }
+}
+
+.animate-rolling {
+  animation: rolling 5s infinite linear;
+}
