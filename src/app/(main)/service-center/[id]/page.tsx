@@ -5,7 +5,7 @@ import Rate from "@/components/ui/rate";
 import AvatarCard from "@/components/ui/avatar-card";
 
 
-const page: React.FC = () => {
+const Page: React.FC = () => {
     const [selectedRating, setSelectedRating] = useState<number | null>(null);
     const user = {
         avatar: 'https://res.cloudinary.com/dp3zeejct/image/upload/v1655344187/cld-sample.jpg',
@@ -62,4 +62,4 @@ const page: React.FC = () => {
     )
 };
 
-export default page;
+export default Page;

@@ -9,11 +9,10 @@ interface Props {
 
 export const MernuServiceItem = (props: Props) => {
     return props.memuitems?.map((item: any, index: number) =>
-        <div className="text-center">
+        <div key={index + 1} className="text-center">
             <div className="flex flex-col items-center">
                 <div className="relative group">
                     <div
-                        key={index + 1}
                         style={{
                             background: item?.background,
                             boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',

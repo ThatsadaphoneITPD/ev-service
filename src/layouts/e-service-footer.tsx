@@ -75,14 +75,13 @@ const listLinks =
                 ]
         }
     ]
-const MapLink = (props: PropNav) => {
-    return props.items.map((item: any) =>
-        <LinkGroup header={item?.header as string}>
-            {item?.lists?.map((i: any) => <NavLink link={i.link as string} label={i.label as string} />)}
-        </LinkGroup>
-    )
-
-}
+// const MapLink = (props: PropNav) => {
+//     return props.items.map((item: any, index: any) =>
+//         <LinkGroup key={index + 1} header={item?.header as string}>
+//             {item?.lists?.map((i: any) => <NavLink key={"link" + index + 1} link={i.link as string} label={i.label as string} />)}
+//         </LinkGroup>
+//     )
+// }
 export const EServiceFooter = (props: Props) => {
     const currentYear = new Date().getFullYear();
     return (

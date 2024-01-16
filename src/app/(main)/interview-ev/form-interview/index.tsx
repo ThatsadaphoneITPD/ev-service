@@ -19,6 +19,7 @@ import { CreateFormEVInput, createFormEVSchema } from './create-formev.schema';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Radio, RadioGroup, Textarea } from "rizzui";
 import { useGeolocation } from 'react-use';
+import { LuArrowRightCircle } from "react-icons/lu";
 import { TYPEMETERCOST } from '@/config/constants';
 import axios from 'axios';
 
@@ -255,10 +256,7 @@ export const FormInterview = (props: Props) => {
         return (
             <div>
                 <div className="relative w-full mt-1 h-full">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke="#2f54eb" className="absolute -top-0.5 z-10 -ml-3.5 h-7 w-7 rounded-full">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="m12.75 15 3-3m0 0-3-3m3 3h-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                    </svg>
-
+                    <LuArrowRightCircle style={{ color: "#3758F4", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 h-7 w-7 rounded-full" />
                     <div className="ml-6">
                         <div aria-label="header" className="max-w-screen flex items-center space-x-2">
                             <div className="space-y-0.5 flex-1 ">

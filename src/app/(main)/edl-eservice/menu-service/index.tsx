@@ -1,7 +1,5 @@
 "use client"
 import React from 'react'
-import { AdvancedRadio, Text } from "rizzui";
-import { LuFolderLock } from "react-icons/lu";
 import { MernuServiceItem } from './map-menuitem';
 import { menuItems } from './menu-Item';
 
