@@ -24,7 +24,7 @@ export const roles = Object.entries(ROLES).map(([key, value]) => ({
 export const typeevcharger = Object.entries(TYPEEVCHARGER).map(
   ([key, value]) => ({
     name: value,
-    value: key,
+    value: value,
   })
 );
 export const capacitycharger = Object.entries(CAPACITYCHARGER).map(

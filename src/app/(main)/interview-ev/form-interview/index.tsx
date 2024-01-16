@@ -1,6 +1,6 @@
 //slide-show
 'use client';
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -14,11 +14,14 @@ import {
     installSmartMeter,
 } from '@/app/shared/roles-permissions/utils';
 import { HeadLine } from './headLine';
+import toast from 'react-hot-toast';
 import { CreateFormEVInput, createFormEVSchema } from './create-formev.schema';
 import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
 import { Radio, RadioGroup, Textarea } from "rizzui";
 import { useGeolocation } from 'react-use';
 import { TYPEMETERCOST } from '@/config/constants';
+import axios from 'axios';
+
 
 interface Props {
 
@@ -88,7 +91,7 @@ const DynamicForm: React.FC<DynamicFormProps> = (props) => {
                             name={name}
                             label={props.label + ' ' + selectedValue}
                             isRequired={true}
-                            error={props.errors?.typeCharger?.message}
+                            error={props.errors}
                             getOptionValue={(option) => option.value}
                             displayValue={(selected: string) => props.options.find((option: any) => option.value === selected)?.name ?? selected}
                             placeholder={props.placeholder}
@@ -111,11 +114,11 @@ const DynamicForm: React.FC<DynamicFormProps> = (props) => {
 
 export const FormInterview = (props: Props) => {
     const [reset, setReset] = React.useState({});
+    // const [currentStep, setCurrentStep] = React.useState(0);
     const geolocation = useGeolocation();
     const coords: Coords | null = geolocation.latitude !== null && geolocation.longitude !== null
         ? { latitude: geolocation.latitude, longitude: geolocation.longitude }
         : null;
-    const [isLoading, setLoading] = React.useState(false);
     const [chargeTime, setChargeTime] = React.useState<string>("")
     const [isExpanded, setExpanded] = useState(false);
     const toggleAccordion = (bool: boolean) => {
@@ -124,30 +127,84 @@ export const FormInterview = (props: Props) => {
     const [agree, setAgree] = useState<string>('');
     const [agreeInstall, setAgreeInstall] = useState<string>('');
     const [textareaValue, setTextareaValue] = useState<string>("");
+    const [optionTOU, setOptionTOU] = useState<string>('');
 
-    const onSubmit: SubmitHandler<CreateFormEVInput> = (data) => {
-        // set timeout ony required to display loading state of the create category button
+    const onSubmit: SubmitHandler<CreateFormEVInput> = async (data) => {
+
         const formattedData = {
             ...data,
-            createdAt: new Date(),
-            latitude: coords?.latitude,
-            longitude: coords?.longitude
+            charger_tou_peak_off: agree !== "ສົນໃຈ" ? "ບໍ່ໄດ້ເລືອກ ຊ່ວງເວລາ" : data.charger_tou_peak_off,
+            install_cost: agree !== "ສົນໃຈ" ? "0" : data.install_cost,
+            latitude: `${coords?.latitude}`,
+            longitude: `${coords?.longitude}`,
+            electic_bill_policy: agree,
+            intrest_install: agreeInstall,
+            reason_install: textareaValue,
         };
-
-
-        setLoading(true);
-        setTimeout(() => {
-            console.log('formattedData', formattedData);
-            setLoading(false);
-            // setReset({
-            //     fullName: '',
-            //     email: '',
-            //     role: '',
-            //     permissions: '',
-            //     status: '',
-            // });
-            // closeModal();
-        }, 600);
+        const saveDataPromise = () => new Promise((resolve, reject) => {
+            // Simulate a delay for the loading state
+            setTimeout(async () => {
+                try {
+                    // Handle the successful response here
+                    resolve('Settings saved!');
+                    setReset({
+                        first_name: "", last_name: "", phone_number: "", village: "", city: "", province: "", meter_account: '', car_banner: "", car_model: "", car_battery: '', car_port: "", type_charger: "", charger_banner: "", charger_power: '', charger_tou_peak_off: "", install_cost: "",
+                    })
+                } catch (error) {
+                    // Handle errors here
+                    reject((error: any) => {
+                        if (error.response) {
+                            // The request was made, but the server responded with a status code
+                            console.error('Server responded with an error status:', error.response.status);
+                            console.error('Response data:', error.response.data);
+                            toast.error(error.response.status);
+                        } else if (error.request) {
+                            // The request was made, but no response was received.
+                            console.error('No response received from the server.');
+                            toast.error('No response received from the server',
+                                {
+                                    style: {
+                                        borderRadius: '10px',
+                                        background: '#333',
+                                        color: '#fff',
+                                    },
+                                }
+                            );
+                        } else {
+                            // Something happened in setting up the request that triggered the error.
+                            console.error('Error setting up the request:', error.message);
+                            toast.error(error.message, {
+                            });
+                        }
+                    });
+                }
+            }, 2000); // Simulating a 1-second delay
+        });
+        try {
+            // Handle the successful response here
+            console.log(formattedData)
+            const apiUrl = 'http://192.168.20.76:4004';
+            const apiHttp = axios.create({
+                baseURL: apiUrl,
+                headers: {
+                    "Content-type": "application/json",
+                    'Content-Disposition': 'attachment; filename*=UTF-8\'\'',
+                },
+            });
+            const response = await apiHttp.post("/api_v1/evRegister/add", formattedData);
+            await toast.promise(
+                saveDataPromise(),
+                {
+                    loading: 'Saving...',
+                    success: <b>{response.data.message}</b>,
+                    error: <b>{response.data.message}</b>,
+                }
+            );
+        }
+        catch (error: any) {
+            // Handle errors here
+            console.error('Error:', error.message);
+        }
     };
     const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ coords }) => {
         const { isLoaded } = useJsApiLoader({
@@ -251,6 +308,26 @@ export const FormInterview = (props: Props) => {
                 console.log('errors', errors);
                 return (
                     <>
+                        {/* <div>
+                            <Stepper currentIndex={currentStep} className="w-full">
+                                <Step
+                                    color="success"
+                                    title="Login"
+
+                                />
+                                <Step
+                                    status="error"
+                                    color="danger"
+                                    title="Verification"
+                                />
+                                <Step
+                                    title="Pay"
+                                />
+                                <Step
+                                    title="Done"
+                                />
+                            </Stepper>
+                        </div> */}
                         <div className="border-l-2 border-dashed" >
                             <HeadLine mainContent='ຂໍ້ມູນທົ່ວໄປຂອງຜູ້ຊົມໃຊ້' subtext='' frontIcon={false} />
                             <div style={{ marginLeft: "3rem" }}>
@@ -259,16 +336,16 @@ export const FormInterview = (props: Props) => {
                                         type='text'
                                         label={<CustomInputLabel isRequire={true}>ຊື່</CustomInputLabel>}
                                         placeholder="ຊື່ທ່ານ"
-                                        {...register('firstName')}
-                                        error={errors.firstName?.message}
+                                        {...register('first_name')}
+                                        error={errors.first_name?.message}
                                     />
 
                                     <Input
                                         type="text"
                                         label={<CustomInputLabel isRequire={true}>ນາມສະກຸນ</CustomInputLabel>}
                                         placeholder="ປ້ອນ ນາມສະກຸນ"
-                                        {...register('lastName')}
-                                        error={errors.lastName?.message}
+                                        {...register('last_name')}
+                                        error={errors.last_name?.message}
                                     />
                                 </div>
                                 <Input
@@ -276,13 +353,8 @@ export const FormInterview = (props: Props) => {
                                     label={<CustomInputLabel isRequire={true}>ເບີໂທຕິດຕໍ່ ຫຼື Whatapp</CustomInputLabel>}
                                     placeholder="Tel:"
                                     className="col-span-full mt-1"
-                                    {...register('phonNumber', {
-                                        setValueAs: (value: string) => {
-                                            const parsedValue = parseFloat(value);
-                                            return isNaN(parsedValue) ? undefined : parsedValue;
-                                        },
-                                    })}
-                                    error={errors.phonNumber?.message}
+                                    {...register('phone_number')}
+                                    error={errors.phone_number?.message}
                                 />
                                 <div style={{ marginTop: "1rem" }}>
                                     <div className="space-y-0.5 flex-1 mb-1">
@@ -314,13 +386,13 @@ export const FormInterview = (props: Props) => {
                                     label={<CustomInputLabel isRequire={true}>ເລກບັນຊີຜູ້ຊົມໃຊ້ໄຟ</CustomInputLabel>}
                                     placeholder="ປ້ອນ ເລກບັນຊີ"
                                     className="col-span-full mt-1"
-                                    {...register('meterAccount', {
+                                    {...register('meter_account', {
                                         setValueAs: (value: string) => {
                                             const parsedValue = parseFloat(value);
                                             return isNaN(parsedValue) ? undefined : parsedValue;
                                         },
                                     })}
-                                    error={errors.meterAccount?.message}
+                                    error={errors.meter_account?.message}
                                 />
                                 <LocationInput />
                             </div>
@@ -332,15 +404,15 @@ export const FormInterview = (props: Props) => {
                                     type='text'
                                     label={<CustomInputLabel isRequire={true} >ຍີ່ຫໍ້ລົດ</CustomInputLabel>}
                                     placeholder="ກະລຸນາ ປ້ອນ ຊື້"
-                                    {...register('carBanner')}
-                                    error={errors.carBanner?.message}
+                                    {...register('car_banner')}
+                                    error={errors.car_banner?.message}
                                 />
                                 <Input
                                     type='text'
                                     label={<CustomInputLabel isRequire={false} >ລຸ້ນ</CustomInputLabel>}
                                     placeholder="ປ້ອນ ລຸ້ນ"
-                                    {...register('carModel')}
-                                // error={errors.carModel?.message}
+                                    {...register('car_model')}
+                                // error={errors.car_model?.message}
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4" style={{ marginLeft: "3rem" }}>
@@ -349,19 +421,19 @@ export const FormInterview = (props: Props) => {
                                     label="ຂະໜາດຂອງ battery"
                                     suffix="kWh"
                                     placeholder="ປ້ອນຈຳນວນ"
-                                    {...register('carbattery', {
+                                    {...register('car_battery', {
                                         setValueAs: (value: string) => {
                                             const parsedValue = parseFloat(value);
-                                            return isNaN(parsedValue) ? undefined : parsedValue;
+                                            return isNaN(parsedValue) ? 0 : parsedValue;
                                         },
                                     })}
                                 />
                                 <DynamicForm
                                     register={register}
-                                    name="carPort"
+                                    name="car_port"
                                     label="ປະເພດຫົວສາກ"
                                     options={typechargerport}
-                                    errors={errors.carPort?.message}
+                                    errors={errors.car_port?.message}
                                     placeholder="ເລືອກ ປະເພດຫົວ"
                                     additionCompare={typechargerport[2]?.value}
                                     control={control}
@@ -372,7 +444,7 @@ export const FormInterview = (props: Props) => {
                             <HeadLine mainContent='ອຸປະກອນສາກລົດ' subtext='' frontIcon={false} />
                             <div style={{ marginLeft: "3rem" }}>
                                 <Controller
-                                    name="typeCharger"
+                                    name="type_charger"
                                     control={control}
                                     render={({ field: { name, onChange, value } }) => (
                                         <Select
@@ -383,7 +455,7 @@ export const FormInterview = (props: Props) => {
                                             label="ປະເພດທີ່ນໍາໃຊ້ເຄື່ອງສາກລົດ"
                                             isRequired={true}
                                             className="col-span-full"
-                                            error={errors?.typeCharger?.message}
+                                            error={errors?.type_charger?.message}
                                             getOptionValue={(option) => option.value}
                                             displayValue={(selected: string) =>
                                                 typeevcharger.find((option) => option.value === selected)?.name ??
@@ -397,11 +469,11 @@ export const FormInterview = (props: Props) => {
                                     <Input
                                         label="ຍີ່ຫໍ້ຂອງເຄື່ອງສາກ"
                                         placeholder="ປ້ອນຍີ່ຫໍ້"
-                                        {...register('chargerBanner')}
-                                        error={errors.chargerBanner?.message}
+                                        {...register('charger_banner')}
+                                        error={errors.charger_banner?.message}
                                     />
                                     <Controller
-                                        name="chargerPower"
+                                        name="charger_power"
                                         control={control}
                                         render={({ field: { name, onChange, value } }) => (
                                             <Select
@@ -411,7 +483,7 @@ export const FormInterview = (props: Props) => {
                                                 name={name}
                                                 label="ແຮງດັນເຄື່ອງສາກລົດ"
                                                 isRequired={true}
-                                                error={errors?.chargerPower?.message}
+                                                error={errors?.charger_power?.message}
                                                 getOptionValue={(option) => option.value}
                                                 displayValue={(selected: number) =>
                                                     capacitycharger.find((option) => option.value === selected)?.name ??
@@ -433,7 +505,7 @@ export const FormInterview = (props: Props) => {
                                     <div>
                                         <RadioGroup value={agree} setValue={setAgree} className="grid grid-cols-2 gap-4">
                                             <Radio label="ສົນໃຈ" value="ສົນໃຈ" onClick={() => { toggleAccordion(true), setAgreeInstall("ສົນໃຈ"), setTextareaValue("ສົນໃຈ ຕິດຕັ້ງ Smart Meter") }} />
-                                            <Radio label="ບໍ່ສົນໃຈ" value="ບໍ່ສົນໃຈ" onClick={() => { toggleAccordion(false), setAgreeInstall("ບໍ່ສົນໃຈ"), setTextareaValue("ບໍ່ສົນໃຈ ຮັບນະໂຍບາຍລາຄາໄຟສາກລົດ"), setReset({ chargerTOUPeakOff: "", installCost: "" }), setChargeTime("") }} />
+                                            <Radio label="ບໍ່ສົນໃຈ" value="ບໍ່ສົນໃຈ" onClick={() => { setChargeTime(""), toggleAccordion(false), setAgreeInstall("ບໍ່ສົນໃຈ"), setTextareaValue("ບໍ່ສົນໃຈ ຮັບນະໂຍບາຍລາຄາໄຟສາກລົດ") }} />
                                         </RadioGroup>
                                     </div>
                                     <div className={`transition ${isExpanded ? 'bg-indigo-50' : ''}`}>
@@ -442,12 +514,13 @@ export const FormInterview = (props: Props) => {
                                             {/* Header */}
                                             <div className='mt-4'>
                                                 <Controller
-                                                    name="chargerTOUPeakOff"
+                                                    name="charger_tou_peak_off"
                                                     control={control}
                                                     render={({ field: { name, onChange, value } }) => (
                                                         <Select
                                                             options={typemetercost}
                                                             isRequired={true}
+                                                            defaultValue={'ບໍ່ໄດ້ເລືອກ ຊ່ວງເວລາ'}
                                                             value={value}
                                                             onChange={(selectedOption: any) => {
                                                                 onChange(selectedOption);
@@ -456,14 +529,13 @@ export const FormInterview = (props: Props) => {
                                                             name={name}
                                                             label="ຄ່າໄຟສໍາລັບ Meter ສະເພາະເຄື່ອງສາກລົດໄຟຟ້າທີ່ທ່ານຄິດວ່າເໝາະສົມ?"
                                                             className="col-span-full"
-                                                            error={errors?.chargerTOUPeakOff?.message}
+                                                            error={errors?.charger_tou_peak_off?.message}
                                                             getOptionValue={(option) => option.value}
                                                             displayValue={(selected: string) =>
                                                                 typemetercost.find((option) => option.value === selected)?.name ??
                                                                 selected
-
                                                             }
-                                                            placeholder="ຄ່າໝໍ້ນັບໄຟ ສຳລັບເຄື່ອງສາກ"
+                                                            placeholder="ຕ້ອງປະກອບ: ຄ່າໝໍ້ນັບໄຟ ສຳລັບເຄື່ອງສາກ"
                                                         />
                                                     )}
                                                 />
@@ -486,30 +558,33 @@ export const FormInterview = (props: Props) => {
                                             <div className='mt-4'>
                                                 <div className='mt-3'>
                                                     <Controller
-                                                        name="installCost"
+                                                        name="install_cost"
                                                         control={control}
                                                         render={({ field: { name, onChange, value } }) => (
                                                             <Select
                                                                 options={installSmartMeter}
                                                                 isRequired={true}
                                                                 value={value}
-                                                                onChange={onChange}
+                                                                onChange={(selectedOption: any) => {
+                                                                    onChange(selectedOption);
+                                                                    setOptionTOU(selectedOption);
+                                                                }}
                                                                 name={name}
                                                                 label="ຄ່າຕິດຕັ້ງ ທີວ່າເໝາະສົມ?"
                                                                 className="col-span-full"
-                                                                error={errors?.installCost?.message}
+                                                                error={errors?.install_cost?.message}
                                                                 getOptionValue={(option) => option.value}
                                                                 displayValue={(selected: string) =>
                                                                     installSmartMeter.find((option) => option.value === selected)?.name ??
                                                                     selected
                                                                 }
-                                                                placeholder="ຄ່າໝໍ້ນັບໄຟທັນສະໄໝ"
+                                                                placeholder="ຕ້ອງປະກອບ: ຄ່າໝໍ້ນັບໄຟທັນສະໄໝ"
                                                             />
                                                         )}
                                                     />
                                                 </div>
                                                 <div className="accordion-header cursor-pointer transition flex space-x-5 px-5 items-center h-full">
-                                                    <HeadlAccordion mainContent='ທ່ານສົນໃຈຕິດຕັ້ງ Smart Meter? :' peakDescritp={false} flatRate={false} />
+                                                    <HeadlAccordion mainContent='ທ່ານສົນໃຈຕິດຕັ້ງ Smart Meter' peakDescritp={false} flatRate={false} />
                                                 </div>
                                                 <div className='mt-3 max-h-[20rem] m-10 p-2 '>
                                                     <RadioGroup value={agreeInstall} setValue={setAgreeInstall} className="grid grid-cols-2 gap-4 p-5">
@@ -540,7 +615,7 @@ export const FormInterview = (props: Props) => {
                         </div>
                         <div className="col-span-full flex items-center justify-center gap-4 mt-20 ml-8">
 
-                            {agree == "ສົນໃຈ" || agree == "ບໍ່ສົນໃຈ" ?
+                            {chargeTime !== "" && optionTOU !== "" && agree == "ສົນໃຈ" || agree == "ບໍ່ສົນໃຈ" ?
                                 <Button
                                     type="submit"
                                     className="w-full xl:w-auto dark:bg-gray-200 dark:text-white dark:active:enabled:bg-gray-300"

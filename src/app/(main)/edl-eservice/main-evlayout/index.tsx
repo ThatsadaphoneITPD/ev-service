@@ -18,7 +18,7 @@ export const Evlayout = (props: Props) => {
         <>
             <div className="area" >
                 <div className='justify-center items-center place-items-center h-[50rem] md:h-full'>
-                    <div className="grid md:grid-cols-1 md:gap-4 ">
+                    <div className="grid grid-cols-1">
                         {/* <div className="col-span-6 md:col-start-1 md:col-span-3 mt-5 md:ml-60 sm:w-96">
                             <div className="grid grid-cols-1 gap-1 m-10 md:m-auto" >
                                 <h3 className="text-white font-bold text-4xl md:w-screen sm:text-wrap sm:ml-10 font-custom-lexend-deca">
@@ -47,7 +47,7 @@ export const Evlayout = (props: Props) => {
                                 </div>
                             </div>
                         </div> */}
-                        <div className="col-span-6 md:col-span-3 relative group h-full mt-10">
+                        <div className="col-span-6 md:col-span-6 relative group h-full mt-10">
                             <SlideShow />
                         </div>
                         <div className="col-span-6 md:col-span-6 sm:h-screen">

@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
-import { EVcarCover, Subtract, Subtract1, Blackev0, Blackev1, Blackev2, Blackev3, Blackev4, Blightev, Blightev1, Blightev2, Blightev3, Blightev4, Blightev5 } from '../menu-service/icon';
+import { Blackev0, Blackev2, Blackev4, Blightev, Blightev1, Blightev2, Blightev3, Blightev4, Blightev5 } from '../menu-service/icon';
 import 'swiper/swiper-bundle.css';
 import Image from 'next/image';
 
@@ -79,7 +79,7 @@ const SlideShow: React.FC = () => {
 
     return (
         <Swiper
-            spaceBetween={30}
+            spaceBetween={5}
             centeredSlides={true}
             autoplay={{
                 delay: 4000,
@@ -91,7 +91,7 @@ const SlideShow: React.FC = () => {
             // navigation={true}
             modules={[Autoplay]}
             onAutoplayTimeLeft={onAutoplayTimeLeft}
-            className="flex flex-col items-center relative w-[25rem] md:w-[80rem] md:rounded-lg mx-auto "
+            className="flex flex-col items-center relative w-[27rem] md:w-[80rem] md:rounded-lg mx-auto "
         >
             {slidesData.map((slide, index) => (
                 <SwiperSlide key={index} data-te-carousel-indicators>
