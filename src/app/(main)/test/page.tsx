@@ -5,7 +5,6 @@ import handleUsers from '@/plugins/testUser';
 import useStore from '@/store/testStore';
 import axios from 'axios';
 import { User } from 'next-auth';
-import { any } from 'prop-types';
 import { useState, useEffect } from 'react';
 
 
