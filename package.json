@@ -3,6 +3,7 @@
   "version": "5.5.0",
   "description": "",
   "private": true,
+  "node": ">=18.15.0",
   "scripts": {
     "clean": "rimraf -g \"{node_modules,.next,.cache}\"",
     "dev": "next dev",
