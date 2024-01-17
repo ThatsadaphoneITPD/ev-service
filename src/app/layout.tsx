@@ -29,7 +29,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getServerSession(authOptions);
+  // const session = await getServerSession(authOptions);
   return (
     <html
       lang="en"
@@ -42,17 +42,17 @@ export default async function RootLayout({
         suppressHydrationWarning
         className={cn(inter.variable, lexendDeca.variable, 'font-inter')}
       >
-        <AuthProvider session={session}>
-          <ThemeProvider>
-            <CartProvider>
-              <NextProgress />
-              {children}
-              <Toaster />
-              <GlobalDrawer />
-              <GlobalModal />
-            </CartProvider>
-          </ThemeProvider>
-        </AuthProvider>
+        {/* <AuthProvider session={session}> */}
+        <ThemeProvider>
+          <CartProvider>
+            <NextProgress />
+            {children}
+            <Toaster />
+            <GlobalDrawer />
+            <GlobalModal />
+          </CartProvider>
+        </ThemeProvider>
+        {/* </AuthProvider> */}
       </body>
     </html>
   );

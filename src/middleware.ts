@@ -10,7 +10,7 @@ export default withAuth({
 export const config = {
   // restricted routes
   matcher: [
-    '/',
+    // '/',
     '/analytics',
     '/logistics/:path*',
     '/ecommerce/:path*',
