@@ -34,7 +34,7 @@ export const EServiceHeader = (props: Props) => {
                     data-target="#navigation"
                 >
                     <Link href='./' >
-                        <FaList style={{ color: "white" }} />
+                        <FaList style={{ color: "white" }} className=" text-[1.5rem] md:text-[4rem]" />
                     </Link>
                 </button>
                 <div
@@ -48,13 +48,13 @@ export const EServiceHeader = (props: Props) => {
                             className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-[#3758F4] hover:text-white"
                         >
                             <Link href='./' >
-                                <IoHome style={{ color: "white" }} />
+                                <IoHome style={{ color: "white" }} className=" text-[1.5rem] md:text-[1.5rem]" />
                             </Link>
                         </span>
                         <span
                             className="lg:inline-flex lg:w-auto w-full px-3 py-2 rounded text-white items-center justify-center hover:bg-[#3758F4] hover:text-white"
                         >
-                            <LuShare2 style={{ color: "white" }} />
+                            <LuShare2 style={{ color: "white" }} className=" text-[1.5rem] md:text-[1.5rem]" />
                         </span>
                     </div>
                 </div>

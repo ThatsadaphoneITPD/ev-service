@@ -184,7 +184,8 @@ export const FormInterview = (props: Props) => {
         try {
             // Handle the successful response here
             console.log(formattedData)
-            const apiUrl = 'http://192.168.20.76:4004';
+            // const envapi = process.env.NEXT_PUBLIC_API_BACKEND;
+            const apiUrl = 'https://ev.edl.com.la';
             const apiHttp = axios.create({
                 baseURL: apiUrl,
                 headers: {

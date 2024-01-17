@@ -4,11 +4,12 @@ interface Props {
 
 }
 
-const page = (props: Props) => {
+const Page = (props: Props) => {
     return (
         <div>
-            Summarize EV
+            EV-summry
         </div>
     )
 }
-export default page
+
+export default Page;

@@ -1,6 +1,6 @@
 .area {
-  background: #4e71c8;
-  background: -webkit-linear-gradient(to left, #8faafb, #4e79c8);
+  /* background: #4e71c8;
+  background-color: -webkit-linear-gradient(to left, #8faafb, #4e79c8); */
   border-top: 5rem;
   height: auto;
 }

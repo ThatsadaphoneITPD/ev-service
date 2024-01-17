@@ -16,7 +16,12 @@ export const Evlayout = (props: Props) => {
     // const more: any = { button: "ບໍລິການອື້ນ...", hoverText: "ເພີ່ມເຕີມ EDL Service" }
     return (
         <>
-            <div className="area" >
+            <div className="area" style={{
+                background: '#4e71c8',
+                backgroundColor: 'linear-gradient(to left, #8faafb, #4e79c8)', // Updated for better browser compatibility
+                // borderTop: '5rem solid #FFFFFF', // Set the border color as needed
+                // height: 'auto',
+            }} >
                 <div className='justify-center items-center place-items-center h-[50rem] md:h-full'>
                     <div className="grid grid-cols-1">
                         {/* <div className="col-span-6 md:col-start-1 md:col-span-3 mt-5 md:ml-60 sm:w-96">
