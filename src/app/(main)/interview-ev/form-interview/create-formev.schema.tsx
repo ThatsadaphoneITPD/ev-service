@@ -18,7 +18,6 @@ export const createFormEVSchema = z.object({
     type_charger: z.string().min(1, { message: messages.EvTypeChargerIsRequired }),
     charger_banner: z.string().optional(),
     charger_power: z.number().refine((value) => value >= 0, { message: messages.EvChargerPowerIsRequired }),
-    charger_tou_peak_off: z.string().optional(),
     install_cost: z.string().optional(),
 });
 

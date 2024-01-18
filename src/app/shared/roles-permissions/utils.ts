@@ -6,6 +6,8 @@ import {
   TYPEMETERCOST,
   PEAKTIMER,
   InstallationCostSmartMeter,
+  CARBANNER,
+  electricCarData,
 } from '@/config/constants';
 import { PERMISSIONS, STATUSES } from '@/data/users-data';
 
@@ -55,3 +57,7 @@ export const installSmartMeter = Object.entries(InstallationCostSmartMeter).map(
     value: value,
   })
 );
+export const carBanner = Object.entries(CARBANNER).map(([key, value]) => ({
+  name: value,
+  value: value,
+}));
