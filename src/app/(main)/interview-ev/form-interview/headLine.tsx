@@ -12,10 +12,10 @@ interface Props {
 
 const numberlists =
     [
-        <PiNumberCircleOneFill style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5 " />,
-        <PiNumberCircleTwoFill style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />,
-        <PiNumberCircleThreeFill style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />,
-        <PiNumberCircleFourFill style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />
+        <PiNumberCircleOneFill key={0} style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5 " />,
+        <PiNumberCircleTwoFill key={1} style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />,
+        <PiNumberCircleThreeFill key={2} style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />,
+        <PiNumberCircleFourFill key={3} style={{ color: "#000c78", backgroundColor: "white" }} className="absolute -top-0.5 z-10 -ml-3.5 w-10 h-10 rounded-full text-5" />
     ]
 export const HeadLine = (props: Props) => {
     return (

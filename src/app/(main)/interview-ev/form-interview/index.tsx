@@ -163,9 +163,9 @@ export const FormInterview = (props: Props) => {
             install_cost: agree !== "ສົນໃຈ" ? "0" : expectCost,
             latitude: `${coords?.latitude}`,
             longitude: `${coords?.longitude}`,
-            electic_bill_policy: agree,
-            intrest_install: agree,
-            reason_install: agree,
+            electic_bill_policy: "none",
+            intrest_install: "none",
+            reason_install: "none",
         };
         const saveDataPromise = () => new Promise((resolve, reject) => {
             // Simulate a delay for the loading state
