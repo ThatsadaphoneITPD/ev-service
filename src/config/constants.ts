@@ -51,9 +51,9 @@ export const TYPEMETERCOST = {
   peakofpeak: 'ລາຄາຊ່ວງເວລາ (Peak / Off Peak)',
 } as const;
 export const InstallationCostSmartMeter = {
-  small: '3,000,000 ກີບ - 5,000,000 ກີບ',
-  middle: '5,000,001 ກີບ - 8,000,000 ກີບ',
-  high: '4,200,000 ກີບ ຂື້ນໄປ',
+  small: '3,000,000 - 5,000,000 ກີບ',
+  middle: '5,000,000 - 8,000,000 ກີບ',
+  high: '8,000,000 ກີບ ຂື້ນໄປ',
 } as const;
 export const CAPACITYCHARGER = {
   sevenkw: 7,
