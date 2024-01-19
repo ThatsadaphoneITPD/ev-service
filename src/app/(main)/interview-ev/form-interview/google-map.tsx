@@ -12,7 +12,7 @@ const containerStyle = {
   borderRadius: '20px',
 };
 
-const MyMapComponent = (props: Props) => {
+const GoogleMapComponent = (props: Props) => {
   const [map, setMap] = useState<any>(null); // Store the GoogleMap instance
   const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
   // const [markerPosition, setMarkerPosition] = useState({ lat: 0, lng: 0 });
@@ -82,4 +82,4 @@ const MyMapComponent = (props: Props) => {
   );
 };
 
-export default MyMapComponent;
+export default GoogleMapComponent;

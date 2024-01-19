@@ -22,7 +22,7 @@ import { RiArrowGoBackFill } from "react-icons/ri";
 import axios from 'axios';
 import Image from 'next/image';
 import { ACCCS2, ACGBT, DCCCS2, DCGBT } from './icon';
-import MyMapComponent from './google-map';
+import GoogleMapComponent from './google-map';
 
 
 interface Props {
@@ -356,7 +356,7 @@ export const FormInterview = (props: Props) => {
                                                 </div>
                                             </div>
                                             <div className="w-full text-left mt-5 mb-5 text-[0.9rem] font-black"><CustomInputLabel isRequire={true}>ຈຸດພິກັດບ່ອນຊົມໃຊ້ໄຟ</CustomInputLabel> </div>
-                                            <MyMapComponent markerPosition={markerPosition} setMarkerPosition={setMarkerPosition} />
+                                            <GoogleMapComponent markerPosition={markerPosition} setMarkerPosition={setMarkerPosition} />
                                         </div>
                                     </div>
                                 </div>
