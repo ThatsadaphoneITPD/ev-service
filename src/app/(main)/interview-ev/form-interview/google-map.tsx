@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
 import { useGeolocation } from "react-use";
+import { Announcement } from "rizzui";
 
 interface Props {
   markerPosition: any,
@@ -58,8 +59,12 @@ const GoogleMapComponent = (props: Props) => {
     <div>
       {isLoaded ? (
         <div>
-          <div>
-            <strong>Location ຂອງ ທ່ານ:</strong> {longitude !== null && latitude !== null ? props.markerPosition.lat.toFixed(6) + "," + props.markerPosition.lng.toFixed(6) : "N/A"}
+          <div className="my-2">
+            <Announcement className="flex-wrap"
+              color="info"
+              badgeText="ພິກັດ"
+              bgColor="white"
+            >{longitude !== null && latitude !== null ? props.markerPosition.lat.toFixed(6) + "," + props.markerPosition.lng.toFixed(6) : "N/A"}</Announcement>
           </div>
           <GoogleMap
             mapContainerStyle={containerStyle}
