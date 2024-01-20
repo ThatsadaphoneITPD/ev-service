@@ -24,7 +24,7 @@ export const MernuServiceItem = (props: Props) => {
                         href={item?.href}
                         key={item?.name + index}>
                         <div style={{ background: item?.mainbg, }}
-                            className="relative flex m-2 bg-white shadow-lg rounded-lg w-[12rem] h-[6rem] md:w-[20rem] md:h-[10rem] hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110">
+                            className="relative flex m-2 bg-white shadow-lg rounded-lg w-[9.5rem] h-[6rem] sm:w-[12rem] sm:h-[6rem] md:w-[20rem] md:h-[10rem] hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110">
                             {/* content Image Here */}
                             <div className='px-[0.6rem] py-[1rem] flex-1'>
                                 <Image
@@ -35,22 +35,21 @@ export const MernuServiceItem = (props: Props) => {
                             </div>
                             <div className={`flex-1 items-center pr-[1rem] py-[1rem] w-[6rem] md:w-full ${item?.soonof === true ? "text-[#2E3192]" : "text-[white]"}  flex items-center justify-center h-full`}>
                                 <div>
-                                    <h3 className={`w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center ${item?.soonof === true ? "text-[#2E3192]" : "text-[white]"} `}>
+                                    <h3 className={`w-full font-semibold text-[13px] sm:text-sm md:text-md lg:text-lg xl:text-xl text-center ${item?.soonof === true ? "text-[#2E3192]" : "text-[white]"} `}>
                                         {item?.name}
                                     </h3>
                                     {item?.subname !== "" &&
-                                        <p className="w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
+                                        <p className="w-full font-semibold text-[11px] sm:text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
                                             {item?.subname}
                                         </p>
                                     }
                                     {item?.morename !== "" &&
-                                        <p className="w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
+                                        <p className="w-full font-semibold text-[11px] sm:text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
                                             {item?.morename}
                                         </p>
                                     }
                                 </div>
                             </div>
-
                         </div>
                     </Link>
                 </div>

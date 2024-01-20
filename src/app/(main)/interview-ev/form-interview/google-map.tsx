@@ -13,9 +13,11 @@ const containerStyle = {
   borderRadius: '20px',
 };
 
+const defaultMapCenter = { lat: 17.9715993, lng: 102.6195815 }
+
 const GoogleMapComponent = (props: Props) => {
   const [map, setMap] = useState<any>(null); // Store the GoogleMap instance
-  const [mapCenter, setMapCenter] = useState({ lat: 0, lng: 0 });
+  const [mapCenter, setMapCenter] = useState(defaultMapCenter);
   // const [markerPosition, setMarkerPosition] = useState({ lat: 0, lng: 0 });
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);

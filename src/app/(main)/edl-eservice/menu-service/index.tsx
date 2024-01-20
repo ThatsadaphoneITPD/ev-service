@@ -21,7 +21,7 @@ export const Mernuservice = (props: Props) => {
             <div className="w-full flex items-center justify-left md:justify-center px-5 mt-4 mb-4">
                 <h5 className="text-[#2E3192]  font-bold text-4xl font-custom-lexend-deca"> ລົງທະບຽນ </h5>
             </div>
-            <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center px-[0.7rem]">
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-16 m-4">
                     <MernuServiceItem memuitems={menuItems} />
                 </div>
@@ -29,7 +29,7 @@ export const Mernuservice = (props: Props) => {
             <div className="w-full flex items-center justify-left md:justify-center px-5 mt-4 mb-4">
                 <h5 className="text-[#2E3192]  font-bold text-4xl font-custom-lexend-deca"> ບໍລິການອື່ນໆ </h5>
             </div>
-            <div className="flex items-center justify-center ">
+            <div className="flex items-center justify-center px-[0.7rem]">
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-16 m-4">
                     <MernuServiceItem memuitems={generalService} />
                 </div>
