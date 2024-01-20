@@ -13,13 +13,13 @@ export const Mernuservice = (props: Props) => {
     return (
         <>
             <div className="w-full flex items-center justify-center px-5 mt-4 mb-4">
-                <div className="rounded-full bg-[#ffff] w-12 h-12 md:w-14 md:h-14 mx-[1rem] ">
+                {/* <div className="rounded-full bg-[#ffff] w-12 h-12 md:w-14 md:h-14 mx-[1rem] ">
                     <Image className="p-[2.50px]" src={UniversityEDL} alt="logo" />
-                </div>
-                <h5 className="text-[#2E3192] font-bold text-[24px] md:text-5xl font-custom-lexend-deca"> EDL E-Service </h5>
+                </div> */}
+                <h5 className="text-[#2E3192] font-bold text-[19.692px] md:text-5xl font-custom-lexend-deca"> EDL E-Service </h5>
             </div>
             <div className="w-full flex items-center justify-left md:justify-center px-5 mt-4 mb-4">
-                <h5 className="text-[#2E3192]  font-bold text-4xl font-custom-lexend-deca"> ລົງທະບຽນ </h5>
+                <h5 className="text-[#2E3192]  font-bold text-[19.692px] md:text-4xl font-custom-lexend-deca"> ລົງທະບຽນ </h5>
             </div>
             <div className="flex items-center justify-center px-[0.7rem]">
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-16 m-4">
@@ -27,7 +27,7 @@ export const Mernuservice = (props: Props) => {
                 </div>
             </div>
             <div className="w-full flex items-center justify-left md:justify-center px-5 mt-4 mb-4">
-                <h5 className="text-[#2E3192]  font-bold text-4xl font-custom-lexend-deca"> ບໍລິການອື່ນໆ </h5>
+                <h5 className="text-[#2E3192]  font-bold [19.692px] md:text-4xl font-custom-lexend-deca"> ບໍລິການອື່ນໆ </h5>
             </div>
             <div className="flex items-center justify-center px-[0.7rem]">
                 <div className="grid grid-cols-2 md:grid-cols-2 gap-16 m-4">

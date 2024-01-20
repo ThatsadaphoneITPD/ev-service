@@ -22,10 +22,10 @@ export const Evlayout = (props: Props) => {
             }} >
                 <div className='justify-center items-center place-items-center h-full md:h-full'>
                     <div className="grid grid-cols-1">
-                        <div className="col-span-6 md:col-span-6 relative group h-full mt-10">
+                        <div className="col-span-6 md:col-span-6 relative group h-full mt-10 px-[10px] flex items-center justify-center">
                             <SlideShow />
                         </div>
-                        <div className="col-span-6 md:col-span-6 sm:h-screen px-[5px]">
+                        <div className="col-span-6 md:col-span-6 sm:h-screen px-[5px] mt-[1rem]">
                             <Mernuservice />
                         </div>
                     </div>

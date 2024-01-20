@@ -25,8 +25,6 @@ import Image from 'next/image';
 import { ACCCS2, ACGBT, DCCCS2, DCGBT } from './icon';
 import GoogleMapComponent from './google-map';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-
 
 interface Props {
 
@@ -164,7 +162,10 @@ export const FormInterview = (props: Props) => {
             </div>
         );
     }
-
+    const handleLinkClick = (value: string) => {
+        // Set local storage when the link is clicked
+        localStorage.setItem('routerpath', value);
+    };
     const onSubmit: SubmitHandler<CreateFormEVInput> = async (data) => {
 
         const formattedData = {
@@ -251,6 +252,7 @@ export const FormInterview = (props: Props) => {
             }
         }
     };
+
     return (
         <div className={`${done === true ? "h-screen" : "h-full"}`}>
             <Form<CreateFormEVInput> resetValues={reset} onSubmit={onSubmit} validationSchema={createFormEVSchema} className={`h-full ${done === true ? "hidden" : "h-full"}`} >
@@ -266,7 +268,7 @@ export const FormInterview = (props: Props) => {
                                             <div style={{ background: styleCardBG }} className="wow fadeInUp shadow-three mb-5 rounded-lg px-8 py-5 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]" data-wow-delay=".15s"  >
                                                 <HeadLine rank={0} mainContent='ຂໍ້ມູນຜູ້ຊົມໃຊ້ໄຟຟ້າ' subtext='' frontIcon={false} />
                                                 <div className="-mx-4 flex flex-wrap">
-                                                    <div className="w-full px-4 md:w-1/2">
+                                                    <div className="w-1/2 px-4 md:w-1/2">
                                                         <div className="mb-8">
                                                             <label
                                                                 htmlFor="number"
@@ -282,7 +284,7 @@ export const FormInterview = (props: Props) => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <div className="w-full px-4 md:w-1/2">
+                                                    <div className="w-1/2 px-4 md:w-1/2">
                                                         <div className="mb-8">
                                                             <label className="mb-3 block text-sm font-medium text-dark dark:text-white"  > <CustomInputLabel isRequire={true}>ນາມສະກຸນ</CustomInputLabel> </label>
                                                             <Input
@@ -607,7 +609,7 @@ export const FormInterview = (props: Props) => {
                         <h5 className=" my-2">ສຳລັບຄວາມຮ່ວມມືໃນການ</h5>
                         <h5> ສະໜອງຂໍ້ມູນໃຫ້ພວກເຮົາ  </h5>
                         <div className="py-10 text-center" >
-                            <Link href={"./"}>
+                            <Link href={"./"} onClick={() => handleLinkClick("home")}>
                                 <Button onClick={() => setDone(false)} className=" w-[10rem] bg-[#4e71c8] hover:bg-[#3734A9] focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">
                                     <div className='flex items-center justify-center h-full'>
                                         <MdElectricMeter size={22} /> Home
