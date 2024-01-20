@@ -1,6 +1,6 @@
-import FloatingCart from '@/app/shared/floating-cart';
-import Header from '@/layouts/header';
-import Sidebar from '@/layouts/sidebar';
+// import FloatingCart from '@/app/shared/floating-cart';
+// import Header from '@/layouts/header';
+// import Sidebar from '@/layouts/sidebar';
 import { EServiceHeader } from './e-service-header';
 import { EServiceFooter } from './e-service-footer';
 

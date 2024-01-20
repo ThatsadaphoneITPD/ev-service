@@ -40,7 +40,7 @@ export const ROLES = {
 export const TYPECHARGERPORT = {
   GBT: 'GBT',
   TYPE2_CCS2: 'TYPE2/CCS2',
-  ETC: 'ປະເພດອື້ນໆ',
+  ETC: 'ປະເພດອື່ນເຊັ່ນ:',
 } as const;
 export const TYPEEVCHARGER = {
   moveable: 'ແບບພົບພາ',

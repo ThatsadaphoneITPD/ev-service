@@ -12,34 +12,47 @@ export const MernuServiceItem = (props: Props) => {
         <div key={index + 1} className="text-center">
             <div className="flex flex-col items-center">
                 <div className="relative group">
-                    <div
-                        style={{
-                            background: item?.background,
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                            transform: 'skewY(-6deg) rotate(20deg)',
-                        }}
-                        className="absolute inset-0 rounded-3xl w-20 h-20 md:w-[10rem] md:h-[10rem] animate-rolling">
-                    </div>
+                    {item?.soonof === true &&
+                        <div style={{ background: item?.background, boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)', position: 'absolute', zIndex: 1, }}
+                            className="rounded-md w-[5rem] h-[2rem] top-[-15px] right-[15px] md:top-[-20px] md:right-[15px] md:w-[7rem] md:h-[2rem]  text-[12px] md:text-base text-[#2E3192] font-semibold hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110">
+                            <div className="flex items-center justify-center h-full">
+                                {item?.soon}
+                            </div>
+                        </div>
+                    }
                     <Link
                         href={item?.href}
                         key={item?.name + index}>
-                        <div style={{ background: '#d8ddf3', }} className="relative bg-white shadow-lg rounded-3xl w-20 h-20 md:w-[10rem] md:h-[10rem] hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110">
+                        <div style={{ background: item?.mainbg, }}
+                            className="relative flex m-2 bg-white shadow-lg rounded-lg w-[12rem] h-[6rem] md:w-[20rem] md:h-[10rem] hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110">
                             {/* content Image Here */}
-                            <Image
-                                className="w-20 h-20 md:w-[10rem] md:h-[10rem] rounded-3xl "
-                                src={item?.png}
-                                alt=''
-                            />
+                            <div className='px-[0.6rem] py-[1rem] flex-1'>
+                                <Image
+                                    className="w-[4rem] h-[4rem] md:w-[8rem] md:h-[8rem] "
+                                    src={item?.png}
+                                    alt=''
+                                />
+                            </div>
+                            <div className={`flex-1 items-center pr-[1rem] py-[1rem] w-[6rem] md:w-full ${item?.soonof === true ? "text-[#2E3192]" : "text-[white]"}  flex items-center justify-center h-full`}>
+                                <div>
+                                    <h3 className={`w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center ${item?.soonof === true ? "text-[#2E3192]" : "text-[white]"} `}>
+                                        {item?.name}
+                                    </h3>
+                                    {item?.subname !== "" &&
+                                        <p className="w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
+                                            {item?.subname}
+                                        </p>
+                                    }
+                                    {item?.morename !== "" &&
+                                        <p className="w-full font-semibold text-sm md:text-md lg:text-lg xl:text-xl text-center font-light">
+                                            {item?.morename}
+                                        </p>
+                                    }
+                                </div>
+                            </div>
+
                         </div>
                     </Link>
-                </div>
-                <div className="w-full flex flex-col items-center mt-2 md:mt-5">
-                    <h3 className='w-full  font-semibold text-white text-sm md:text-md lg:text-lg xl:text-xl text-center'>
-                        {item.name}
-                    </h3>
-                    <p className="w-full text-sm md:text-md text-center text-white font-light">
-                        {item.subname}
-                    </p>
                 </div>
             </div>
         </div>

@@ -17,45 +17,15 @@ export const Evlayout = (props: Props) => {
     return (
         <>
             <div className="area" style={{
-                background: '#4e71c8',
-                backgroundColor: 'linear-gradient(to left, #8faafb, #4e79c8)', // Updated for better browser compatibility
-                // borderTop: '5rem solid #FFFFFF', // Set the border color as needed
-                // height: 'auto',
+                // background: '#4e71c8',
+                // backgroundColor: 'linear-gradient(to left, #8faafb, #4e79c8)',
             }} >
-                <div className='justify-center items-center place-items-center h-[50rem] md:h-full'>
+                <div className='justify-center items-center place-items-center h-full md:h-full'>
                     <div className="grid grid-cols-1">
-                        {/* <div className="col-span-6 md:col-start-1 md:col-span-3 mt-5 md:ml-60 sm:w-96">
-                            <div className="grid grid-cols-1 gap-1 m-10 md:m-auto" >
-                                <h3 className="text-white font-bold text-4xl md:w-screen sm:text-wrap sm:ml-10 font-custom-lexend-deca">
-                                    {headerline}
-                                </h3>
-                                <p className="text-10 md:text-11 font-quicksand text-white md:w-96 sm:ml-10 ">
-                                    {contentline}
-                                </p>
-                                <div className="grid grid-cols-2 gap-4 mt-10 md:m-10" style={{ width: "20rem" }}>
-                                    <Tooltip color="invert" shadow="sm" content={() => <span>{sign.hoverText}</span>}>
-                                        <button className="mx-auto py-2.5 text-white border w-20 border-white rounded-md hover:bg-white hover:text-black relative">
-                                            {sign.button}
-                                        </button>
-                                    </Tooltip>
-                                    <Tooltip color="invert" shadow="sm" content={() => <span>{more.hoverText}</span>}>
-                                        <button className="text-center text-white text-sm font-quicksand underline hover:text-blue hover:opacity-80 focus:outline-none">
-                                            {more.button}
-                                        </button>
-                                    </Tooltip>
-                                </div>
-                                <div className="grid md:grid-cols-2 md:gap-4 mt-5 ml-10">
-                                    <Rate size="sm" label={<span className="text-center text-white text-sm font-quicksand underline">{review}</span>} defaultValue={4} tooltips={reactions}
-                                        onChange={(value) => {
-                                            setSelectedRating(value)
-                                        }} />
-                                </div>
-                            </div>
-                        </div> */}
                         <div className="col-span-6 md:col-span-6 relative group h-full mt-10">
                             <SlideShow />
                         </div>
-                        <div className="col-span-6 md:col-span-6 sm:h-screen">
+                        <div className="col-span-6 md:col-span-6 sm:h-screen px-[5px]">
                             <Mernuservice />
                         </div>
                     </div>

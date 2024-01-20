@@ -14,7 +14,7 @@ export const createFormEVSchema = z.object({
     car_banner: z.string().min(1, { message: messages.EvCarBannerIsRequired }),
     car_model: z.string().optional(),
     car_battery: z.number().optional(),
-    car_port: z.string().min(1, { message: messages.EvCarPortChargeIsRequired }),
+    car_port: z.string().optional(),
     type_charger: z.string().min(1, { message: messages.EvTypeChargerIsRequired }),
     charger_banner: z.string().optional(),
     charger_power: z.number().refine((value) => value >= 0, { message: messages.EvChargerPowerIsRequired }),

@@ -5,7 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/autoplay';
-import { Blackev0, Blackev2, Blackev4, Blightev, Blightev1, Blightev2, Blightev3, Blightev4, Blightev5 } from '../menu-service/icon';
+import { Blackev0, Blackev2, Blackev4, EDLOffice, Blightev, Blightev1, Blightev2, Blightev3, Blightev4, Blightev5 } from '../menu-service/icon';
 import 'swiper/swiper-bundle.css';
 import Image from 'next/image';
 
@@ -30,48 +30,18 @@ const SlideShow: React.FC = () => {
     };
     const slidesData: Slide[] = [
         {
-            imageSrc: Blackev0,
+            imageSrc: EDLOffice,
             label: "EV Car's The One",
             content: "",
         },
         {
-            imageSrc: Blackev2,
-            label: "Business Charger Station",
-            content: "",
-        },
-        {
-            imageSrc: Blackev4,
-            label: "Your EV Car ARE!!",
-            content: "",
-        },
-        {
-            imageSrc: Blightev,
+            imageSrc: Blightev3,
             label: "Eco Friendly",
             content: "",
         },
         {
-            imageSrc: Blightev1,
-            label: "EV Charge morning",
-            content: "",
-        },
-        {
-            imageSrc: Blightev2,
-            label: "Polution AS Eco Friendly",
-            content: "",
-        },
-        {
-            imageSrc: Blightev3,
-            label: "EV Charge At Work Office",
-            content: "",
-        },
-        {
-            imageSrc: Blightev4,
+            imageSrc: Blightev,
             label: "EV Charge At Home",
-            content: "",
-        },
-        {
-            imageSrc: Blightev5,
-            label: "EV Solution without The Fuel Much Better",
             content: "",
         },
     ];
@@ -91,7 +61,7 @@ const SlideShow: React.FC = () => {
             // navigation={true}
             modules={[Autoplay]}
             onAutoplayTimeLeft={onAutoplayTimeLeft}
-            className="flex flex-col items-center relative w-[27rem] md:w-[80rem] md:rounded-lg mx-auto "
+            className="flex flex-col items-center relative w-[27rem] md:w-[80rem] rounded-lg mx-auto "
         >
             {slidesData.map((slide, index) => (
                 <SwiperSlide key={index} data-te-carousel-indicators>

@@ -50,8 +50,10 @@ const GoogleMapComponent = (props: Props) => {
       lng: event.latLng.lng(),
     });
   };
-
   const handleMapLoad = (map: any) => {
+    map.setOptions({
+      enableMyLocation: true,
+    });
     setMap(map);
   };
 

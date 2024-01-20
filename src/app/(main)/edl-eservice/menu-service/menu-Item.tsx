@@ -1,20 +1,65 @@
 import { routes } from '@/config/routes';
-import { evchargerBlue, evleaf, evleaf1, ev2d, solarroof, solarroofgreen } from "./icon"
+import { pugcharge, roottop, edlapp, edlbuilding } from "./icon"
 // Note: do not add href in the label object, it is rendering as label
 export const menuItems = [
     {
-        name: 'ແບບຟອມ EV',
-        subname: '',
+        name: 'ລົງທະບຽນ',
+        subname: 'ຜູ້ນຳໃຊ້ ລົດ',
+        morename: "EV",
+        soon: "ມາໄວນີ້!",
+        soonof: false,
         href: routes.interview.ev,
-        png: evchargerBlue,
-        background: 'linear-gradient(to right, #afc6d9, #4683e5)',
+        png: pugcharge,
+        sunbg: "white",
+        text: "#EAEAEA",
+        background: '#D9D9D9',
+        mainbg: "#2E3192",
     },
     {
-        name: 'ແບບຟອມ Solar Roof',
-        subname: '',
+        name: 'ລົງທະບຽນ',
+        subname: 'ຜູ້ນຳໃຊ້  Solar',
+        morename: " Rooft Top",
+        soon: "Soon!",
+        soonof: true,
         href: "",
-        png: solarroof,
-        background: 'linear-gradient(to right, #d9c7af, #e5a346)',
+        sunbg: "white",
+        text: "#2E3192",
+        png: roottop,
+        background: '#D9D9D9',
+        mainbg: "#f0f0f0",
+
+    },
+    {
+        name: 'ຂໍຊົມໃຊ້',
+        subname: 'ໄຟຟ້າໃໝ່',
+        morename: "",
+        soon: "ມາໄວນີ້!",
+        soonof: true,
+        href: "",
+        sunbg: "white",
+        text: "#2E3192",
+        png: edlapp,
+        background: '#D9D9D9',
+        mainbg: "#f0f0f0",
     },
 
 ];
+
+
+export const generalService =
+    [
+
+        {
+            name: 'ຂໍ້ມູນສູນບໍລິການ',
+            subname: '',
+            soon: "ມາໄວນີ້!",
+            soonof: true,
+            href: "",
+            sunbg: "white",
+            text: "#2E3192",
+            png: edlbuilding,
+            background: '#D9D9D9',
+            mainbg: "#f0f0f0",
+        },
+
+    ];
