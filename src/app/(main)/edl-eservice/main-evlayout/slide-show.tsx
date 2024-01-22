@@ -34,16 +34,16 @@ const SlideShow: React.FC = () => {
             label: "EV Car's The One",
             content: "",
         },
-        {
-            imageSrc: Blightev3,
-            label: "Eco Friendly",
-            content: "",
-        },
-        {
-            imageSrc: Blightev,
-            label: "EV Charge At Home",
-            content: "",
-        },
+        // {
+        //     imageSrc: Blightev3,
+        //     label: "Eco Friendly",
+        //     content: "",
+        // },
+        // {
+        //     imageSrc: Blightev,
+        //     label: "EV Charge At Home",
+        //     content: "",
+        // },
     ];
 
 
@@ -67,7 +67,7 @@ const SlideShow: React.FC = () => {
                 <SwiperSlide key={index} data-te-carousel-indicators>
                     <div className={`relative transition-transform duration-[600ms] ease-in-out motion-reduce:transition-none`} >
                         <Image
-                            className={`w-full h-48 md:h-[19rem] `}
+                            className={`w-full h-[138px] md:h-[19rem] `}
                             src={slide.imageSrc}
                             alt={`Slide ${index + 1}`}
                         />

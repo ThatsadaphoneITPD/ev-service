@@ -22,15 +22,15 @@ export const Evlayout = (props: Props) => {
             }} >
                 <div className='justify-center items-center place-items-center h-full md:h-full'>
                     <div className="grid grid-cols-1">
-                        <div className="col-span-6 md:col-span-6 relative group h-full mt-10 px-[10px] flex items-center justify-center">
+                        <div className="col-span-6 md:col-span-6 relative group h-full mt-[0.5rem] md:mt-[1rem] px-[15px] flex items-center justify-center">
                             <SlideShow />
                         </div>
-                        <div className="col-span-6 md:col-span-6 sm:h-screen px-[5px] mt-[1rem]">
+                        <div className="col-span-6 md:col-span-6 sm:h-screen mt-[0.5rem] md:mt-[1rem]">
                             <Mernuservice />
                         </div>
                     </div>
                 </div>
-                <ul className="circles" style={{ zIndex: 0 }}>
+                {/* <ul className="circles" style={{ zIndex: 0 }}>
                     <li></li>
                     <li></li>
                     <li></li>
@@ -41,7 +41,7 @@ export const Evlayout = (props: Props) => {
                     <li></li>
                     <li></li>
                     <li></li>
-                </ul>
+                </ul> */}
             </div >
         </>
     )

@@ -1,30 +1,25 @@
 //slide-show
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Controller, SubmitHandler } from 'react-hook-form';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Select from '@/components/ui/select';
 import { MdElectricMeter } from "react-icons/md";
-import {
-    typeevcharger,
-    capacitycharger,
-    typechargerport,
-    installSmartMeter,
-    carBanner,
-} from '@/app/shared/roles-permissions/utils';
+import { typeevcharger, capacitycharger, typechargerport, installSmartMeter, carBanner, provincesList, getDistrict, getVillages } from '@/app/shared/roles-permissions/utils';
 import { HeadLine } from './headLine';
 import toast from 'react-hot-toast';
-import { CreateFormEVInput, createFormEVSchema } from './create-formev.schema';
+import { CreateFormEVInput, createFormEVSchema, placholder } from './create-formev.schema';
 import { Radio, RadioGroup, } from "rizzui";
 import { electricCarData } from '@/config/constants';
-import { RiArrowGoBackFill } from "react-icons/ri";
+// import { RiArrowGoBackFill } from "react-icons/ri";
 import axios from 'axios';
 import Image from 'next/image';
 import { ACCCS2, ACGBT, DCCCS2, DCGBT } from './icon';
 import GoogleMapComponent from './google-map';
 import Link from 'next/link';
+import { Districts, Villages } from '@/config/countryconstants';
 
 interface Props {
 
@@ -38,6 +33,8 @@ interface CustomInputLabelProps {
     children: React.ReactNode;
     isRequire: boolean
 }
+
+
 
 interface DynamicFormProps {
     value: any;
@@ -53,7 +50,7 @@ interface DynamicFormProps {
 }
 const Asterisk: React.FC = () => <span className='text-red text-sm'> * </span>;
 const CustomInputLabel: React.FC<CustomInputLabelProps> = ({ children, isRequire }) => (
-    <div>
+    <div >
         {children}
         {isRequire == true && <Asterisk />}
     </div>
@@ -64,55 +61,57 @@ const DynamicForm: React.FC<DynamicFormProps> = (props) => {
 
     return (
         <>
-            {props.value !== props.additionCompare ? (
-                <RadioGroup value={props.value} setValue={props.setvalue} className="grid grid-cols-1 sm:grid-cols-3 mx-auto gap-4">
-                    {props?.options.map((item: any) => (
-                        <div className="flex justify-center items-center" key={item.value}>
-                            <div className="flex-none mx-3">
-                                <Radio
-                                    name={props.name}
-                                    value={item.value}
-                                    checked={item.value === props.value}
-                                    inputClassName='bg-white'
-                                    size="xl"
-                                />
-                            </div>
-                            <div
-                                {...props.register(props.name)}
-                                onClick={() => props.setvalue(item.value)}
-                                className={`grid grid-cols-4 gap-4 relative bg-white shadow-lg rounded-md w-[12rem] ${item.name === "ETC" ? "h-24 flex justify-center items-center" : "h-24"} hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110 text-center`}
-                            >
-                                <div className="mx-1 col-span-4 ">{item.value}</div>
-                                {item.name !== "ETC" && (
-                                    <>
-                                        <div className="mx-1 col-span-2">
-                                            <div className="flex justify-center items-center">
-                                                <div className="flex-none ">{item.name === "GBT" && "AC"} {item.name === "TYPE2_CCS2" && "AC"}</div>
-                                                <div className="flex-initial ">{item.name === "GBT" && <Image src={ACGBT} alt='ACGBT' />} {item.name === "TYPE2_CCS2" && <Image src={ACCCS2} alt='ACCCS2' />}</div>
-                                            </div>
-                                        </div>
-                                        <div className="mx-1 col-span-2">
-                                            <div className="flex justify-center items-center">
-                                                <div className="flex-none ">{item.name === "GBT" && "DC"} {item.name === "TYPE2_CCS2" && "DC"}</div>
-                                                <div className="flex-initial ">{item.name === "GBT" && <Image src={DCGBT} alt='DCGBT' />} {item.name === "TYPE2_CCS2" && <Image className='h-[3.5rem]' src={DCCCS2} alt='DCCCS2' />}</div>
-                                            </div>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
+            <RadioGroup value={props.value} setValue={props.setvalue} className="grid grid-cols-1 sm:grid-cols-3 mx-auto gap-2 md:gap-4">
+                {props?.options.map((item: any) => (
+                    <div className="flex justify-items-stretch items-center" key={item.value}>
+                        <div className="flex-none mx-3">
+                            <Radio
+                                name={props.name}
+                                value={item.value}
+                                checked={item.value === props.value}
+                                inputClassName='bg-white'
+                                size="xl"
+                            />
                         </div>
-                    ))}
-                </RadioGroup>
-            ) : (
-                <Input
-                    type='text'
-                    inputClassName='bg-white'
-                    onChange={(value) => props.setvalue(value)}
-                    suffix={<RiArrowGoBackFill className='hover:duration-200 transition-transform duration-300 transform hover:scale-110 hover:text-bold' onClick={() => { props.setvalue("") }} />}
-                    placeholder="ເພີ່ມໃໝ່"
-                    {...props.register(props.name)}
-                    error={props.value == "" ? "ກະລຸນາປ້ອນ" : undefined}
-                />
+                        <div
+                            {...props.register(props.name)}
+                            onClick={() => props.setvalue(item.value)}
+                            className={`grid grid-cols-4 gap-4 relative bg-white shadow-lg rounded-md w-[12rem] ${item.name === "ETC" ? "h-24 flex justify-center items-center" : "h-24"} hover:ring-2 group-focus:ring-4 ring-opacity-30 duration-200 shadow-md transition-transform duration-300 transform hover:scale-110 text-center`}
+                        >
+                            <div className="mx-1 col-span-4 ">{item.value}</div>
+                            {item.name !== "ETC" && (
+                                <>
+                                    <div className="mx-1 col-span-2">
+                                        <div className="flex justify-center items-center">
+                                            <div className="flex-none ">{item.name === "GBT" && "AC"} {item.name === "TYPE2_CCS2" && "AC"}</div>
+                                            <div className="flex-initial ">{item.name === "GBT" && <Image src={ACGBT} alt='ACGBT' />} {item.name === "TYPE2_CCS2" && <Image src={ACCCS2} alt='ACCCS2' />}</div>
+                                        </div>
+                                    </div>
+                                    <div className="mx-1 col-span-2">
+                                        <div className="flex justify-center items-center">
+                                            <div className="flex-none ">{item.name === "GBT" && "DC"} {item.name === "TYPE2_CCS2" && "DC"}</div>
+                                            <div className="flex-initial ">{item.name === "GBT" && <Image src={DCGBT} alt='DCGBT' />} {item.name === "TYPE2_CCS2" && <Image className='h-[3.5rem]' src={DCCCS2} alt='DCCCS2' />}</div>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                ))}
+            </RadioGroup>
+            {props.value === props.additionCompare && (
+                <div className='mt-[1rem]'>
+                    <label className="mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ເພີ່ມ ປະເພດຫົວສາກ ອື່ນໆ</CustomInputLabel> </label>
+                    <Input
+                        type='text'
+                        inputClassName='bg-white'
+                        onChange={(value) => props.setvalue(value)}
+                        // suffix={<RiArrowGoBackFill className='hover:duration-200 transition-transform duration-300 transform hover:scale-110 hover:text-bold' onClick={() => { props.setvalue("") }} />}
+                        placeholder={placholder.car_port}
+                        {...props.register(props.name)}
+                        error={props.value == "" ? "ກະລຸນາປ້ອນ" : undefined}
+                    />
+                </div>
             )}
         </>
     );
@@ -122,17 +121,24 @@ const DynamicForm: React.FC<DynamicFormProps> = (props) => {
 export const FormInterview = (props: Props) => {
     const [reset, setReset] = React.useState({});
     const styleCardBG = "rgb(74 108 247/3%)";
-
+    const [cartport, setCarPort] = useState<string>('');
     const [carmodel, setCarmodel] = React.useState<string>("")
+    const [selectedProvince, setSelectedProvince] = useState<string | undefined>(undefined);
+    const [selectedDistrict, setSelectedDistrict] = useState<string | undefined>(undefined);
     const selectedCar = (carmodel: any) => {
         return electricCarData.find((car) => car.name === carmodel);
     };
-    const [cartport, setCarPort] = useState<string>('');
+
+
     const selectedCarObject = selectedCar(carmodel);
     const modelsArray = selectedCarObject?.models || [];
     const carmodels = Object.entries(modelsArray).map(([key, value]) => ({ name: value, value: value, }));
+    ///address EV user 
+    const districts = getDistrict(selectedProvince);
+    const villages = getVillages(selectedDistrict);
+    //ETC state
     const [agree, setAgree] = useState<string>('');
-    const [expectCost, setExpectCost] = useState<string>('ບໍ່ເລືອກ');
+    const [expectCost, setExpectCost] = useState<string>('none');
     const [markerPosition, setMarkerPosition] = useState({ lat: 0, lng: 0 });
     const [done, setDone] = useState<boolean>(false);
 
@@ -144,15 +150,16 @@ export const FormInterview = (props: Props) => {
                     <div className=" md:ml-6">
                         <div aria-label="header" className="max-w-screen flex items-center space-x-2">
                             <div className="flex-1 ">
-                                <h4 className="font-bold text-base md:text-[24]">{mainContent}</h4>
+                                <h4 className="font-bold text-[14.35345px] md:text-[24]">{mainContent}</h4>
                             </div>
                         </div>
                         {peakDescritp == true &&
-                            <div aria-label="header" className="max-w-screen flex items-center space-x-2 p-4">
+                            <div aria-label="header" className="max-w-screen space-x-2 p-4">
+                                <h4 className="font-bold text-[14.35345px] md:text-[24]">ລາຄານຳໃຊ້ໄຟຟ້າສຳລັບລົດ EV ແບບນະໂຍບາຍຈະເປັນຮູບແບບ Time of Use (TOU) ເຊີ່ງຈະກຳນົດເປັນຊ່ວງເວລາ ເຊັ່ນ:</h4>
                                 <div className="space-y-0.5 ">
                                     <ul className="list-disc space-4">
-                                        <li> <h5 className="font-bold text-sm md:text-[24]"> ຊ່ວງ Peak ເວລາແຕ່ 9:00 ຫາ 22:00 ວັນຈັນ-ວັນສຸກ</h5></li>
-                                        <li> <h5 className="font-bold text-sm md:text-[24]"> ຊ່ວງ Off-Peak ເວລາແຕ່ 22:00 ຫາ 9:00 ວັນຈັນ-ວັນສຸກ ແລະ  0:00 ຫາ 24:00 ວັນເສົາ-ວັນອາທິດ ວັນພັກລັດຖະການ </h5></li>
+                                        <li> <h5 className="font-bold text-[14.35345px] md:text-[24]"> ຊ່ວງ Peak ເວລາແຕ່ 9:00 ຫາ 22:00 ວັນຈັນ-ວັນສຸກ</h5></li>
+                                        <li> <h5 className="font-bold text-[14.35345px] md:text-[24]"> ຊ່ວງ Off-Peak ເວລາແຕ່ 22:00 ຫາ 9:00 ວັນຈັນ-ວັນສຸກ ແລະ  0:00 ຫາ 24:00 ວັນເສົາ-ວັນອາທິດ ວັນພັກລັດຖະການ </h5></li>
                                     </ul>
                                 </div>
                             </div>
@@ -170,10 +177,11 @@ export const FormInterview = (props: Props) => {
 
         const formattedData = {
             ...data,
-            car_model: data.car_model == "" ? "none" : data.car_model,
+            car_model: data.car_model === "" ? "none" : data.car_model,
             car_port: cartport,
-            charger_tou_peak_off: expectCost,
-            install_cost: agree !== "ສົນໃຈ" ? "none" : expectCost,
+            charger_banner: data.charger_banner === "" ? "none" : data.charger_banner,
+            charger_tou_peak_off: agree !== "ສົນໃຈ" ? "none" : agree,
+            install_cost: expectCost === "" ? "none" : expectCost,
             latitude: `${markerPosition?.lat}`,
             longitude: `${markerPosition?.lng}`,
             electic_bill_policy: "none",
@@ -205,10 +213,10 @@ export const FormInterview = (props: Props) => {
         } else {
             try {
                 // Handle the successful response here
-                console.log(formattedData)
+                // console.log(formattedData)
                 const envapi = process.env.NEXT_PUBLIC_API_BACKEND;
                 const apiHttp = axios.create({
-                    baseURL: "https://ev.edl.com.la",
+                    baseURL: envapi,
                     headers: {
                         "Content-type": "application/json",
                         'Content-Disposition': 'attachment; filename*=UTF-8\'\'',
@@ -228,12 +236,12 @@ export const FormInterview = (props: Props) => {
                 // Handle errors here
                 if (error.response) {
                     // The request was made, but the server responded with a status code
-                    console.error('Server responded with an error status:', error.response.status);
-                    console.error('Response data:', error.response.data);
+                    // console.error('Server responded with an error status:', error.response.status);
+                    // console.error('Response data:', error.response.data);
                     toast.error(error.response.status);
                 } else if (error.request) {
                     // The request was made, but no response was received.
-                    console.error('No response received from the server.');
+                    // console.error('No response received from the server.');
                     toast.error('No response received from the server',
                         {
                             style: {
@@ -245,7 +253,7 @@ export const FormInterview = (props: Props) => {
                     );
                 } else {
                     // Something happened in setting up the request that triggered the error.
-                    console.error('Error setting up the request:', error.message);
+                    // console.error('Error setting up the request:', error.message);
                     toast.error(error.message, {
                     });
                 }
@@ -278,7 +286,8 @@ export const FormInterview = (props: Props) => {
                                                             <Input
                                                                 type='text'
                                                                 inputClassName='bg-white'
-                                                                placeholder="ກະລຸນາປ້ອນຊື່"
+                                                                className='placeholder:tex-gay-400/0'
+                                                                placeholder={placholder.firstname}
                                                                 {...register('first_name')}
                                                                 error={errors.first_name?.message}
                                                             />
@@ -290,7 +299,7 @@ export const FormInterview = (props: Props) => {
                                                             <Input
                                                                 type="text"
                                                                 inputClassName='bg-white'
-                                                                placeholder="ກະລຸນາປ້ອນນາມສະກຸນ"
+                                                                placeholder={placholder.lastname}
                                                                 {...register('last_name')}
                                                                 error={errors.last_name?.message}
                                                             />
@@ -302,7 +311,7 @@ export const FormInterview = (props: Props) => {
                                                             </label>
                                                             <Input
                                                                 type='number'
-                                                                placeholder=" xxxx xxxx"
+                                                                placeholder={placholder.phonenumber}
                                                                 inputClassName='bg-white'
                                                                 prefix="020"
                                                                 {...register('phone_number')}
@@ -321,7 +330,7 @@ export const FormInterview = (props: Props) => {
                                                             <Input
                                                                 type='number'
                                                                 inputClassName='bg-white'
-                                                                placeholder="ປ້ອນ ເລກບັນຊີ"
+                                                                placeholder={placholder.electric_acc}
                                                                 {...register('meter_account', {
                                                                     setValueAs: (value: string) => {
                                                                         const parsedValue = parseFloat(value);
@@ -343,32 +352,99 @@ export const FormInterview = (props: Props) => {
                                                 <div className='-mx-4 flex flex-wrap'>
                                                     <div className="w-full px-4 md:w-1/3">
                                                         <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ແຂວງ</CustomInputLabel> </label>
-                                                        <Input
-                                                            placeholder="ນະຄອນຫຼວງ"
+                                                        {/* <Input
+                                                            placeholder={placholder.province}
                                                             className='w-full'
                                                             inputClassName='bg-white'
                                                             {...register('province')}
                                                             error={errors.province?.message}
+                                                        /> */}
+                                                        <Controller
+                                                            name="province"
+                                                            control={control}
+                                                            render={({ field: { name, onChange, value } }) => (
+                                                                <Select
+                                                                    name={name}
+                                                                    options={provincesList}
+                                                                    value={value}
+                                                                    onChange={(selectedOption: any) => {
+                                                                        onChange(selectedOption);
+                                                                        setSelectedProvince(provincesList.find((option) => option.value === selectedOption)?.key);
+                                                                    }}
+                                                                    selectClassName="bg-white"
+                                                                    getOptionValue={(option) => option.value}
+                                                                    displayValue={(selected: string) =>
+                                                                        provincesList.find((option) => option.value === selected)?.name ??
+                                                                        selected
+                                                                    }
+                                                                    error={errors.province?.message}
+                                                                    placeholder={placholder.province}
+                                                                />
+                                                            )}
                                                         />
+
                                                     </div>
                                                     <div className="w-full px-4 md:w-1/3">
                                                         <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ເມືອງ</CustomInputLabel> </label>
-                                                        <Input
+                                                        {/* <Input
                                                             className='w-full mt-4 md:mt-0'
-                                                            placeholder="ສີສັດຕະນາກ"
+                                                            placeholder={placholder.city}
                                                             inputClassName='bg-white'
                                                             {...register('city')}
                                                             error={errors.city?.message}
+                                                        /> */}
+                                                        <Controller
+                                                            name="city"
+                                                            control={control}
+                                                            render={({ field: { name, onChange, value } }) => (
+                                                                <Select
+                                                                    name={name}
+                                                                    options={districts}
+                                                                    value={value}
+                                                                    onChange={(selectedOption: any) => {
+                                                                        onChange(selectedOption);
+                                                                        setSelectedDistrict(districts.find((option) => option.value === selectedOption)?.key);
+                                                                    }}
+                                                                    selectClassName="bg-white"
+                                                                    getOptionValue={(option) => option.value}
+                                                                    displayValue={(selected: string) =>
+                                                                        districts.find((option) => option.value === selected)?.name ??
+                                                                        selected
+                                                                    }
+                                                                    error={errors.city?.message}
+                                                                    placeholder={placholder.city}
+                                                                />
+                                                            )}
                                                         />
                                                     </div>
                                                     <div className="w-full px-4 md:w-1/3">
                                                         <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ບ້ານ</CustomInputLabel> </label>
-                                                        <Input
+                                                        {/* <Input
                                                             className='w-full mt-4 md:mt-0'
-                                                            placeholder="ໂສກປ່າຫຼວງ"
+                                                            placeholder={placholder.village}
                                                             inputClassName='bg-white'
                                                             {...register('village')}
                                                             error={errors.village?.message}
+                                                        /> */}
+                                                        <Controller
+                                                            name="village"
+                                                            control={control}
+                                                            render={({ field: { name, onChange, value } }) => (
+                                                                <Select
+                                                                    name={name}
+                                                                    options={villages}
+                                                                    value={value}
+                                                                    onChange={onChange}
+                                                                    selectClassName="bg-white"
+                                                                    getOptionValue={(option) => option.value}
+                                                                    displayValue={(selected: string) =>
+                                                                        villages.find((option) => option.value === selected)?.name ??
+                                                                        selected
+                                                                    }
+                                                                    error={errors.village?.message}
+                                                                    placeholder={placholder.village}
+                                                                />
+                                                            )}
                                                         />
                                                     </div>
                                                 </div>
@@ -410,7 +486,7 @@ export const FormInterview = (props: Props) => {
                                                                             carBanner.find((option) => option.value === selected)?.name ??
                                                                             selected
                                                                         }
-                                                                        placeholder="VOLKSWAGEN"
+                                                                        placeholder={placholder.car_banner}
                                                                     />
                                                                 )}
                                                             />
@@ -436,7 +512,7 @@ export const FormInterview = (props: Props) => {
                                                                             carmodels.find((option) => option.value === selected)?.name ??
                                                                             selected
                                                                         }
-                                                                        placeholder="ID6"
+                                                                        placeholder={placholder.car_model}
                                                                     />
                                                                 )}
                                                             />
@@ -447,9 +523,8 @@ export const FormInterview = (props: Props) => {
                                                             <label htmlFor="number" className="mb-3 block text-sm font-medium text-dark dark:text-white" >ຂະໜາດແບັດເຕີຣີ </label>
                                                             <Input
                                                                 type="number"
-                                                                suffix="kWh"
                                                                 inputClassName='bg-white'
-                                                                placeholder="65 kWh"
+                                                                placeholder={placholder.car_battery}
                                                                 {...register('car_battery', {
                                                                     setValueAs: (value: string) => {
                                                                         const parsedValue = parseFloat(value);
@@ -460,7 +535,7 @@ export const FormInterview = (props: Props) => {
                                                         </div>
                                                     </div>
                                                     <div className="w-full px-4 ">
-                                                        <div className="mb-8">
+                                                        <div className="mb-[1rem]">
                                                             <label className="mb-3 block text-sm font-medium text-dark dark:text-white"  > <CustomInputLabel isRequire={true}>ປະເພດຫົວສາກ</CustomInputLabel> </label>
                                                             <DynamicForm
                                                                 value={cartport}
@@ -504,14 +579,14 @@ export const FormInterview = (props: Props) => {
                                                                     typeevcharger.find((option) => option.value === selected)?.name ??
                                                                     selected
                                                                 }
-                                                                placeholder="ແບບພົກພາ/ສຸກເສີນ"
+                                                                placeholder={placholder.type_charger}
                                                             />
                                                         )}
                                                     />
                                                     <div className="-mx-4 flex flex-wrap" style={{ marginTop: "1rem" }}>
                                                         <div className="w-full px-4 md:w-1/2">
                                                             <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white">ຍີ່ຫໍ້ຂອງເຄື່ອງສາກ </label>
-                                                            <Input placeholder="WallBox" inputClassName='bg-white' {...register('charger_banner')} error={errors.charger_banner?.message} />
+                                                            <Input placeholder={placholder.charger_banner} inputClassName='bg-white' {...register('charger_banner')} error={errors.charger_banner?.message} />
                                                         </div>
                                                         <div className="w-full px-4 md:w-1/2">
                                                             <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ແຮງດັນເຄື່ອງສາກລົດ</CustomInputLabel> </label>
@@ -532,8 +607,7 @@ export const FormInterview = (props: Props) => {
                                                                             capacitycharger.find((option) => option.value === selected)?.name ??
                                                                             selected
                                                                         }
-                                                                        suffix="kW"
-                                                                        placeholder="7kw/11kw/22kw"
+                                                                        placeholder={placholder.charger_power}
                                                                     />
                                                                 )}
                                                             />
@@ -556,7 +630,7 @@ export const FormInterview = (props: Props) => {
                                                 </h3>
                                                 <div className={`transition bg-indigo-50`}>
                                                     <div className={`accordion-content pt-0 overflow-hidden max-h-0 transition-max-height duration-300 ease max-h-[30rem]`} >
-                                                        <HeadlAccordion mainContent='4.1 ທ່ານສົນໃຈ ຕິດຕັ້ງໝໍ້ນັບໄຟແຍກສະເພາະ ເພື່ອນຳໃຊ້ກັບ ເຄື່ອງສາກລົດ EV ສະເພາະຫຼືບໍ ເພື່ອຮັບລາຄາໄຟຟ້າ ແບບນະໂຍບາຍສົ່ງເສີມ ຫຼື ບໍ ?":' peakDescritp={true} flatRate={false} />
+                                                        <HeadlAccordion mainContent='4.1 ທ່ານສົນໃຈ ຕິດຕັ້ງໝໍ້ນັບໄຟແຍກສະເພາະ ເພື່ອນຳໃຊ້ກັບ ເຄື່ອງສາກລົດ EV ສະເພາະຫຼືບໍ ເພື່ອຮັບລາຄາໄຟຟ້າ ແບບນະໂຍບາຍສົ່ງເສີມ ຫຼື ບໍ?' peakDescritp={true} flatRate={false} />
                                                     </div>
                                                 </div>
                                                 <div>
@@ -581,17 +655,10 @@ export const FormInterview = (props: Props) => {
                                 </div >
                             </div>
                             {/* 5----------------------------------Summit---------------------------------- */}
-                            <div className="col-span-full flex items-center justify-center gap-4 mt-20 ml-8">
-                                {expectCost !== "ບໍ່ເລືອກ" && agree == "ສົນໃຈ" || agree == "ບໍ່ສົນໃຈ" ?
-                                    <Button
-                                        type="submit"
-                                        className="w-full h-[55px] md:w-[10rem] lg:w-[30rem] xl:w-[40rem] bg-[#3734A9]"
-                                    >
-                                        ສົ່ງຂໍ້ມູນ
-                                    </Button>
-                                    :
-                                    <></>
-                                }
+                            <div className="col-span-full flex items-center justify-center gap-4 mb-[1rem]">
+                                <Button type="submit" className="w-full h-[55px] md:w-[10rem] lg:w-[30rem] xl:w-[40rem] bg-[#3734A9]"  >
+                                    ສົ່ງຂໍ້ມູນ
+                                </Button>
                             </div>
                         </>
                     );

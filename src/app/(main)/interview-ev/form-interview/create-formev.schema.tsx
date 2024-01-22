@@ -20,6 +20,22 @@ export const createFormEVSchema = z.object({
     charger_power: z.number().refine((value) => value >= 0, { message: messages.EvChargerPowerIsRequired }),
     install_cost: z.string().optional(),
 });
+export const placholder = {
+    firstname: "ປ້ອນຊື່",
+    lastname: "ປ້ອນນາມສະກຸນ",
+    phonenumber: "xxxx xxxx",
+    electric_acc: "ປ້ອນເລກໃຊ້ໄຟ",
+    province: "ເລືອກ ແຂວງ",
+    city: "ເລືອກ ເມືອງ",
+    village: "ເລືອກ ບ້ານ",
+    car_banner: "ເລືອກ ຍີ່ຫໍ້",
+    car_model: "ເລືອກ ລຸ້ນ",
+    car_battery: "ເລືອກ ຈຳນວນ kWh",
+    car_port: "ປ້ອນ ປະເພດອື່ນ",
+    type_charger: "ເລືອກ ປະເພດ",
+    charger_banner: "ປ້ອນ ຍີ່ຫໍ້",
+    charger_power: "ເລືອກ ຈຳນວນ kW",
+}
 
 // generate form types from zod validation schema
 export type CreateFormEVInput = z.infer<typeof createFormEVSchema>;
