@@ -672,10 +672,10 @@ export const FormInterview = (props: Props) => {
                         </path>
                     </svg>
                     <div className="text-center">
-                        <h1 className="text-[24px] text-base text-gray-900 font-semibold text-center">ຂອບໃຈ</h1>
-                        <h5 className=" my-2">ສຳລັບຄວາມຮ່ວມມືໃນການ</h5>
-                        <h5> ສະໜອງຂໍ້ມູນໃຫ້ພວກເຮົາ  </h5>
-                        <div className="py-10 text-center" >
+                        <h1 className="text-[3rem] md:text-[4rem] text-gray-900 font-semibold text-center">ຂອບໃຈ</h1>
+                        <h6 className=" text-base  mb-5 mt-6">ສຳລັບຄວາມຮ່ວມມືໃນການ</h6>
+                        <h6 className=" text-base mt-5"> ສະໜອງຂໍ້ມູນໃຫ້ພວກເຮົາ  </h6>
+                        <div className="py-5 text-center" >
                             <Link href={"./"} onClick={() => handleLinkClick("home")}>
                                 <Button onClick={() => setDone(false)} className=" w-[10rem] bg-[#4e71c8] hover:bg-[#3734A9] focus:outline-none focus:ring-2 focus:ring-indigo-700 focus:ring-opacity-50">
                                     <div className='flex items-center justify-center h-full'>
