@@ -386,13 +386,6 @@ export const FormInterview = (props: Props) => {
                                                     </div>
                                                     <div className="w-full px-4 md:w-1/3">
                                                         <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ເມືອງ</CustomInputLabel> </label>
-                                                        {/* <Input
-                                                            className='w-full mt-4 md:mt-0'
-                                                            placeholder={placholder.city}
-                                                            inputClassName='bg-white'
-                                                            {...register('city')}
-                                                            error={errors.city?.message}
-                                                        /> */}
                                                         <Controller
                                                             name="city"
                                                             control={control}
@@ -419,13 +412,6 @@ export const FormInterview = (props: Props) => {
                                                     </div>
                                                     <div className="w-full px-4 md:w-1/3">
                                                         <label className="mt-3 mb-3 block text-sm font-medium text-dark dark:text-white"><CustomInputLabel isRequire={true}>ບ້ານ</CustomInputLabel> </label>
-                                                        {/* <Input
-                                                            className='w-full mt-4 md:mt-0'
-                                                            placeholder={placholder.village}
-                                                            inputClassName='bg-white'
-                                                            {...register('village')}
-                                                            error={errors.village?.message}
-                                                        /> */}
                                                         <Controller
                                                             name="village"
                                                             control={control}
@@ -480,7 +466,7 @@ export const FormInterview = (props: Props) => {
                                                                         selectClassName="bg-white"
                                                                         name={name}
                                                                         isRequired={true}
-                                                                        error={errors?.charger_power?.message}
+                                                                        error={errors?.car_banner?.message}
                                                                         getOptionValue={(option) => option.value}
                                                                         displayValue={(selected: string) =>
                                                                             carBanner.find((option) => option.value === selected)?.name ??
@@ -506,7 +492,7 @@ export const FormInterview = (props: Props) => {
                                                                         selectClassName="bg-white"
                                                                         name={name}
                                                                         isRequired={true}
-                                                                        error={errors?.charger_power?.message}
+                                                                        error={errors?.car_model?.message}
                                                                         getOptionValue={(option) => option.value}
                                                                         displayValue={(selected: string) =>
                                                                             carmodels.find((option) => option.value === selected)?.name ??
